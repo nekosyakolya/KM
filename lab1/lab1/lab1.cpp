@@ -8,8 +8,8 @@ void InitGraphs(CGraph& firstGraph, CGraph& secondGraph)
 	std::string secondGraphDataFileName;
 
 
-	std::ifstream firstGraphDataFile("4.txt");
-	std::ifstream secondGraphDataFile("6.txt");
+	std::ifstream firstGraphDataFile("b1.txt");
+	std::ifstream secondGraphDataFile("b2.txt");
 
 	if (!firstGraphDataFile.is_open() || !secondGraphDataFile.is_open())
 	{
