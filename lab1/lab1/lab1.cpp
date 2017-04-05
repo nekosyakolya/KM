@@ -8,8 +8,8 @@ void InitGraphs(CGraph& firstGraph, CGraph& secondGraph)
 	std::string secondGraphDataFileName;
 
 
-	std::ifstream firstGraphDataFile("b1.txt");
-	std::ifstream secondGraphDataFile("b2.txt");
+	std::ifstream firstGraphDataFile("4.txt");
+	std::ifstream secondGraphDataFile("6.txt");
 
 	if (!firstGraphDataFile.is_open() || !secondGraphDataFile.is_open())
 	{
@@ -37,11 +37,12 @@ int main()
 		InitGraphs(firstGraph, secondGraph);
 		firstGraph.FindCircles();
 		secondGraph.FindCircles();
+		std::ofstream output("out.txt");
 
 		std::cout << "first graph formula :\n";
-		firstGraph.PrintFormula();
+		firstGraph.PrintFormula(output);
 		std::cout << "second graph formula :\n";
-		secondGraph.PrintFormula();
+		secondGraph.PrintFormula(output);
 		std::cout << "Graphs are " << (IsIsomorphic(firstGraph, secondGraph) ? "isomorphic" : "not isomorphic") << std::endl;
 	}
 	catch (const std::exception& err)

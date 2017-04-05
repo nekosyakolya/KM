@@ -11,7 +11,7 @@ public:
 	void Fill(std::ifstream& input );
 	void FindCircles();
 	Formula GetFormula() const;
-	void PrintFormula() const;
+	void PrintFormula(std::ofstream & out) const;
 	
 	~CGraph();
 private:

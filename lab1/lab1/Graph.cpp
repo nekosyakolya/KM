@@ -55,11 +55,11 @@ Formula CGraph::GetFormula() const
 	return m_formula;
 }
 
-void CGraph::PrintFormula() const
+void CGraph::PrintFormula(std::ofstream & out) const
 {
 	for (auto circle : m_formula)
 	{
-		std::cout << circle.first << " : " << circle.second << std::endl;
+		out << circle.first << " : " << circle.second << std::endl;
 	}
 }
 
