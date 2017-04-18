@@ -1,11 +1,7 @@
-// lab2.cpp: определяет точку входа для консольного приложения.
-//
-
 #include "stdafx.h"
 #include <vector>
 #include <string>
 #include <fstream>
-#include <queue>
 #include <set>
 #include <iostream>
 
@@ -27,7 +23,7 @@ struct Node
 {
 	size_t hash = 0;
 	Matrix matrix;
-	Position zeroPosition = Position (0, 0);
+	Position zeroPosition = Position(0, 0);
 	Node *father = nullptr;
 	void CalculateZeroPosition()
 	{
@@ -91,28 +87,28 @@ Node *CreateNewNode(Node *currentNode, int directionX, int directionY)
 }
 
 
-void ProcessSearch(std::queue<Node*> &searchQueue, std::set<size_t> &hashes)
+void ProcessSearch(std::vector<Node*> &searchQueue, std::set<size_t> &hashes)
 {
 	Node *currNode = searchQueue.front();
-	searchQueue.pop();
+	searchQueue.erase(searchQueue.begin());
 
 	if (IsHashValid(hashes, currNode->hash))
 	{
 		if (currNode->zeroPosition.x > 0)
 		{
-			searchQueue.push(CreateNewNode(currNode, -1, 0));
+			searchQueue.emplace(searchQueue.begin(), CreateNewNode(currNode, -1, 0));
 		}
 		if (currNode->zeroPosition.y > 0)
 		{
-			searchQueue.push(CreateNewNode(currNode, 0, -1));
+			searchQueue.emplace(searchQueue.begin(), CreateNewNode(currNode, 0, -1));
 		}
 		if (currNode->zeroPosition.x < FIELD_SIZE - 1)
 		{
-			searchQueue.push(CreateNewNode(currNode, 1, 0));
+			searchQueue.emplace(searchQueue.begin(), CreateNewNode(currNode, 1, 0));
 		}
 		if (currNode->zeroPosition.y < FIELD_SIZE - 1)
 		{
-			searchQueue.push(CreateNewNode(currNode, 0, 1));
+			searchQueue.emplace(searchQueue.begin(), CreateNewNode(currNode, 0, 1));
 		}
 		hashes.emplace(currNode->hash);
 	}
@@ -121,11 +117,11 @@ void ProcessSearch(std::queue<Node*> &searchQueue, std::set<size_t> &hashes)
 size_t GetResult(Node **root)
 {
 	std::set<size_t> hashes;
-	std::queue<Node*> nodesQueue;
+	std::vector<Node*> nodesQueue;
 
 	(*root)->CalculateZeroPosition();
 	(*root)->GetHash();
-	nodesQueue.push(*root);
+	nodesQueue.push_back(*root);
 	while (!nodesQueue.empty())
 	{
 		ProcessSearch(nodesQueue, hashes);
@@ -142,4 +138,5 @@ int main()
 	std::cout << GetResult(&root) << std::endl;
 	return EXIT_SUCCESS;
 }
+
 
